@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:background="@android:color/holo_red_dark"
         android:textColor="@android:color/white"
-        android:text="Open Camera"
+        android:text="@string/cam_button"
         />
 
 </LinearLayout>
