@@ -2,4 +2,5 @@
 <resources>
     <string name="cam_button">Open Camera</string>
     <string name="app_name">jSnap</string>
+    <string name="image_cd_camera">Images go here</string>
 </resources>
