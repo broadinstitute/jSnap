@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.File;
+import java.io.IOException;
 
 
-public class MainActivity extends AppCompatActivity {
-    private static String logtag = "jSnap";
+public class MainActivity extends Activity {
+    private static String logtag = "MainActivity";
     private static int TAKE_PICTURE = 1;
     private Uri imageURI;
 
@@ -34,11 +36,15 @@ public class MainActivity extends AppCompatActivity {
     }
     private View.OnClickListener cameraListener = new View.OnClickListener() {
         public void onClick(View v) {
-            takePhoto(v);
+            try {
+                takePhoto(v);
+            } catch (Exception e) {
+                Log.e(logtag, e.toString());
+            }
         }
     };
     private void takePhoto(View v){
-        Intent intent = new Intent("andoid.media.action.IMAGECAPTURE");
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "jsnap.jpg");
         imageURI = Uri.fromFile(photo);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
