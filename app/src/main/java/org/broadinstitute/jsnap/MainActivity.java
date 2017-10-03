@@ -77,6 +77,7 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, selectedImage.toString(), Toast.LENGTH_SHORT).show();
             } catch(Exception e) {
                 Log.e(logtag, e.toString());
+                 Log.e(logtag, "exception", e);
             }
         }
     }
