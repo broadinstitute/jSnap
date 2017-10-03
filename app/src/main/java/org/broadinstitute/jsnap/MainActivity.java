@@ -4,17 +4,11 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,8 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.File;
-import java.io.IOException;
-import java.util.jar.Manifest;
 
 
 public class MainActivity extends Activity {
@@ -47,19 +39,20 @@ public class MainActivity extends Activity {
     private View.OnClickListener cameraListener = new View.OnClickListener() {
         public void onClick(View v) {
             try {
-                takePhoto(v);
+                takePhoto();
             } catch (Exception e) {
-                Log.e(logtag, getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath());
                 Log.e(logtag, e.toString());
-                Log.e(logtag, "exception", e);
+                // Full stack trace.
+                // Log.e(logtag, "exception", e);
 
             }
         }
     };
-    private void takePhoto(View v){
+    private void takePhoto(){
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File photo = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), FILENAME);
-        imageURI=FileProvider.getUriForFile(this, AUTHORITY, photo);
+        File imagePath = new File(getFilesDir(), "images");
+        File photo = new File(imagePath, FILENAME);
+        imageURI = FileProvider.getUriForFile(this, AUTHORITY, photo);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
         // TAKE_PICTURE is a request code saying we want to use the rear-facing camera.
         startActivityForResult(intent, TAKE_PICTURE);
