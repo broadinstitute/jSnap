@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
         File imagePath = new File(getFilesDir(), "images");
         File photo = new File(imagePath, FILENAME);
         imageURI = FileProvider.getUriForFile(this, AUTHORITY, photo);
+        Log.i(logtag, imageURI.getPath());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
         // TAKE_PICTURE is a request code saying we want to use the rear-facing camera.
         startActivityForResult(intent, TAKE_PICTURE);
