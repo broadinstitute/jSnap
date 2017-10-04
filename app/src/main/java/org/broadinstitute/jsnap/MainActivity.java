@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -25,7 +27,7 @@ public class MainActivity extends Activity {
     private static final String AUTHORITY = BuildConfig.APPLICATION_ID+".fileprovider";
 
     private static final String PHOTOS="photos";
-    private static final String FILENAME="jsnap_test.jpeg";
+    private static final String FILENAME="jsnap_test.jpg";
     Uri imageURI;
 
     @Override
@@ -51,9 +53,10 @@ public class MainActivity extends Activity {
     private void takePhoto(){
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         File imagePath = new File(getFilesDir(), "images");
+        Log.e(logtag, imagePath.getAbsolutePath());
         File photo = new File(imagePath, FILENAME);
+        Log.e(logtag, photo.getAbsolutePath());
         imageURI = FileProvider.getUriForFile(this, AUTHORITY, photo);
-        Log.i(logtag, imageURI.getPath());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI);
         // TAKE_PICTURE is a request code saying we want to use the rear-facing camera.
         startActivityForResult(intent, TAKE_PICTURE);
@@ -72,6 +75,7 @@ public class MainActivity extends Activity {
             Bitmap bitmap;
 
             try {
+                Log.e(logtag, selectedImage.getEncodedPath());
                 bitmap = MediaStore.Images.Media.getBitmap(cr, selectedImage);
                 imageView.setImageBitmap(bitmap);
                 Toast.makeText(MainActivity.this, selectedImage.toString(), Toast.LENGTH_SHORT).show();
