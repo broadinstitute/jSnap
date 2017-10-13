@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.File;
+import java.io.FileOutputStream;
 
 
 public class MainActivity extends Activity {
@@ -25,7 +26,7 @@ public class MainActivity extends Activity {
     private static final String AUTHORITY = BuildConfig.APPLICATION_ID+".fileprovider";
 
     private static final String PHOTOS="photos";
-    private static final String FILENAME="jsnap_test.jpeg";
+    private static final String FILENAME="jsnap_test.jpg";
     Uri imageURI;
 
     @Override
@@ -70,12 +71,12 @@ public class MainActivity extends Activity {
             ImageView imageView = (ImageView)findViewById(R.id.image_camera);
             ContentResolver cr = getContentResolver();
             Bitmap bitmap;
-
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(cr, selectedImage);
                 imageView.setImageBitmap(bitmap);
                 Toast.makeText(MainActivity.this, selectedImage.toString(), Toast.LENGTH_SHORT).show();
             } catch(Exception e) {
+                Log.e(logtag, selectedImage.getEncodedPath());
                 Log.e(logtag, e.toString());
                  Log.e(logtag, "exception", e);
             }
