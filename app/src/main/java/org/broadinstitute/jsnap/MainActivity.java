@@ -2,7 +2,6 @@ package org.broadinstitute.jsnap;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,13 +18,15 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.util.List;
 
+import static android.os.Environment.getExternalStorageDirectory;
+
 
 public class MainActivity extends Activity {
     private static String logtag = "MainActivity";
     private static int TAKE_PICTURE = 1;
 
     private static final String AUTHORITY = BuildConfig.APPLICATION_ID+".fileprovider";
-
+    private Uri mURI;
     private static final String PHOTOS="photos";
     private static final String FILENAME="jsnap_test.jpg";
     Uri imageURI;
@@ -80,8 +81,9 @@ public class MainActivity extends Activity {
                 imageView.setImageBitmap(bitmap);
                 Toast.makeText(MainActivity.this, selectedImage.toString(), Toast.LENGTH_SHORT).show();
             } catch(Exception e) {
+                Log.e(logtag, selectedImage.getPath());
                 Log.e(logtag, e.toString());
-                 Log.e(logtag, "exception", e);
+                Log.e(logtag, "exception", e);
             }
         }
     }
