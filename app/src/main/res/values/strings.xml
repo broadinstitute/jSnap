@@ -9,4 +9,11 @@
     <string name="btnIntendV">Take Video</string>
     <string name="cannot">Cannot</string>
     <string name="album_name">CameraSample</string>
+    <string name="projectAutoComplete">Start typing a JIRA project name</string>
+    <string name="issueAutoComplete">Start typing a JIRA issue name</string>
+    <string name="attachButton">Attach Image</string>
+    <string name="retakeButton">Retake Image</string>
+    <string name="attachExplain">
+        Select a JIRA project, then an issue, to attach the image you just took to the selected JIRA ticket.
+    </string>
 </resources>

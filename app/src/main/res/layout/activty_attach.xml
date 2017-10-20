@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/broad_blue"
+    >
+    <TextView
+        android:text="@string/attachExplain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/jira_projects"
+            android:labelFor="@id/jira_projects"
+            android:layout_width="match_parent"
+            android:textColor="@color/broad_light_blue"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:text="@string/projectAutoComplete" >
+            <requestFocus />
+        </AutoCompleteTextView>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/jira_issues"
+            android:labelFor="@id/jira_issues"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:textColor="@color/broad_light_blue"
+            android:text="@string/issueAutoComplete">
+
+            <requestFocus />
+        </AutoCompleteTextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="771dp"
+        >
+
+        <Button
+            android:text="@string/attachButton" android:id="@+id/attach_button"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:textColor="@color/broad_blue"
+            />
+        <Button
+            android:text="@string/retakeButton" android:id="@+id/retake_button"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:textColor="@color/broad_blue"
+            />
+    </LinearLayout>
+
+</LinearLayout>
