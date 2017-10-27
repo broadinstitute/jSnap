@@ -28,6 +28,21 @@
             android:text="@string/cam_button"
             android:textColor="@color/broad_blue"
             android:layout_gravity="bottom"/>
+        <Button
+            android:id="@+id/switch_activity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:text="@string/switch_activity"
+            android:textColor="@color/broad_blue"
+            android:layout_gravity="bottom"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
 
     </LinearLayout>
 </LinearLayout>

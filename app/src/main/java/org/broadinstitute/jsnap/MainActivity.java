@@ -33,6 +33,14 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         Button cameraButton = (Button)(findViewById(R.id.cam_button));
         cameraButton.setOnClickListener(cameraListener);
+
+        Button switchButton = (Button)(findViewById(R.id.switch_activity));
+        switchButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, AttachActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     private View.OnClickListener cameraListener = new View.OnClickListener() {
         public void onClick(View v) {
@@ -46,6 +54,7 @@ public class MainActivity extends Activity {
             }
         }
     };
+
     private void takePhoto(){
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         File imagePath = new File(getFilesDir(), "images");

@@ -6,7 +6,7 @@
     android:background="@color/broad_blue"
     >
     <TextView
-        android:text="@string/attachExplain"
+        android:text="@string/attachExplainProject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -22,11 +22,19 @@
             android:layout_width="match_parent"
             android:textColor="@color/broad_light_blue"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:text="@string/projectAutoComplete" >
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:completionThreshold="1"
+            android:completionHint="@string/projectAutoComplete" >
             <requestFocus />
         </AutoCompleteTextView>
     </LinearLayout>
+    <TextView
+        android:text="@string/attachExplainIssue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_height="wrap_content"
@@ -37,20 +45,20 @@
             android:labelFor="@id/jira_issues"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/broad_light_blue"
-            android:text="@string/issueAutoComplete">
+            android:completionThreshold="2"
+            android:completionHint="@string/issueAutoComplete">
 
             <requestFocus />
         </AutoCompleteTextView>
     </LinearLayout>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="771dp"
         >
-
         <Button
             android:text="@string/attachButton" android:id="@+id/attach_button"
             android:layout_height="wrap_content"
@@ -68,5 +76,6 @@
             android:textColor="@color/broad_blue"
             />
     </LinearLayout>
+
 
 </LinearLayout>
