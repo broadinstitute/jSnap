@@ -27,7 +27,7 @@ public class AttachActivity extends Activity implements AsyncResponse{
     private static String logtag = "AttachActivity";
     String[] projects;
     AsyncRequestTask asyncRequest = new AsyncRequestTask();
-
+// https://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
