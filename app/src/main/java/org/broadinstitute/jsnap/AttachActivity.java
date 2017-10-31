@@ -23,14 +23,17 @@ import java.util.ArrayList;
  * Created by Amr on 10/20/2017.
  */
 
-public class AttachActivity extends Activity {
+public class AttachActivity extends Activity implements AsyncResponse{
     private static String logtag = "AttachActivity";
-    String[] PROJECTS = {"SSF", "TALES", "BTLHLP", "Submissions"};
+    String[] projects;
+    AsyncRequestTask asyncRequest = new AsyncRequestTask();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_attach);
+
+        asyncRequest.listener = this;
 
         Button retakeButton = (Button)(findViewById(R.id.retake_button));
         retakeButton.setOnClickListener(new View.OnClickListener(){
@@ -41,8 +44,17 @@ public class AttachActivity extends Activity {
         });
 
         //TODO: Populate the projects autocomplete so user can select projects via api call. Should use autocomplete.
+            URL rpc_url;
+            String AUTH = "gaagbot:bender";
+            try {
+                rpc_url = new URL("https://btljira.broadinstitute.org/rpc/json-rpc/excel2jirasoapservice/getAllProjects");
+                asyncRequest.execute(rpc_url);
+
+            } catch (Exception e) {
+                Log.e(logtag, e.toString());
+            }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, PROJECTS);
+                android.R.layout.simple_dropdown_item_1line, projects);
         AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.jira_projects);
         textView.setAdapter(adapter);
         //TODO: On selection of Projects autocomplete, populate the issues drop down via api call. Should use autocomplete.
@@ -50,19 +62,14 @@ public class AttachActivity extends Activity {
         //TODO: On click of attach button, make API call to attach image to ticket.
         //TODO: Send a toast message with result
     }
-    //TODO: Get a list of all projects available on the JIRA instance.
-    private class DownloadFilesTask extends AsyncTask<URL, Void, String[]> {
-        protected String[] doInBackground(URL... urls) {
-            String[] PROJECTS = {"SSF", "TALES", "BTLHLP", "Submissions"};
-            return PROJECTS;
-        }
+    @Override
+    public void processFinish(String[] output){
 
-
-        protected void onPostExecute(String[] result) {
-            return result;
-        }
     }
+    //TODO: Get a list of all projects available on the JIRA instance.
 }
+
+
 //    private class GetProjectsTask extends AsyncTask<String[], Void, String> {
 //
 //        @Override
@@ -126,5 +133,3 @@ public class AttachActivity extends Activity {
 //        }
 //
 //    }
-}
-
