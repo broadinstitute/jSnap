@@ -50,8 +50,6 @@
             android:textColor="@color/broad_light_blue"
             android:completionThreshold="2"
             android:completionHint="@string/issueAutoComplete">
-
-            <requestFocus />
         </AutoCompleteTextView>
     </LinearLayout>
     <LinearLayout

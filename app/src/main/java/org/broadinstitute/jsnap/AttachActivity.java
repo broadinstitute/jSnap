@@ -1,39 +1,27 @@
 package org.broadinstitute.jsnap;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * Created by Amr on 10/20/2017.
  */
 
-public class AttachActivity extends Activity implements AsyncResponse{
+public class AttachActivity extends Activity {
     private static String logtag = "AttachActivity";
     String[] projects;
-    AsyncRequestTask asyncRequest = new AsyncRequestTask();
 // https://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_attach);
-
-        asyncRequest.listener = this;
 
         Button retakeButton = (Button)(findViewById(R.id.retake_button));
         retakeButton.setOnClickListener(new View.OnClickListener(){
@@ -44,27 +32,27 @@ public class AttachActivity extends Activity implements AsyncResponse{
         });
 
         //TODO: Populate the projects autocomplete so user can select projects via api call. Should use autocomplete.
-            URL rpc_url;
-            String AUTH = "gaagbot:bender";
+            URL url;
             try {
-                rpc_url = new URL("https://btljira.broadinstitute.org/rpc/json-rpc/excel2jirasoapservice/getAllProjects");
-                asyncRequest.execute(rpc_url);
-
+                AsyncRequest asyncRequest = new AsyncRequest();
+//                url = new URL("https://btljira.broadinstitute.org/rpc/json-rpc/excel2jirasoapservice/getAllProjects");
+//                url = new URL("https://btljira.broadinstitute.org/rest/api/2/mypermissions");
+                url = new URL("http://gscid-cromwell.broadinstitute.org:9000/api/workflows/v1/query");
+                asyncRequest.execute(url);
+                asyncRequest.getStatus();
+                String[] projects = asyncRequest.get();
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_dropdown_item_1line, projects);
+                AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.jira_projects);
+                textView.setAdapter(adapter);
             } catch (Exception e) {
                 Log.e(logtag, e.toString());
             }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, projects);
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.jira_projects);
-        textView.setAdapter(adapter);
+
         //TODO: On selection of Projects autocomplete, populate the issues drop down via api call. Should use autocomplete.
         //TODO: Once issue is selected, make attach button available.
         //TODO: On click of attach button, make API call to attach image to ticket.
         //TODO: Send a toast message with result
-    }
-    @Override
-    public void processFinish(String[] output){
-
     }
     //TODO: Get a list of all projects available on the JIRA instance.
 }
