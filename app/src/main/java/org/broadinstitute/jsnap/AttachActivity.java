@@ -35,7 +35,8 @@ public class AttachActivity extends Activity implements AsyncResponse {
             URL url;
 //                url = new URL("https://btljira.broadinstitute.org/rpc/json-rpc/excel2jirasoapservice/getAllProjects");
 //                url = new URL("https://btljira.broadinstitute.org/rest/api/2/mypermissions");
-            url = new URL("http://btl-cromwell.broadinstitute.org:9000/api/engine/v1/version");
+//            url = new URL("http://btl-cromwell.broadinstitute.org:9000/api/engine/v1/version");
+            url = new URL("https://httpbin.org/headers");
             asyncRequest.execute(url);
         } catch (Exception e) {
             Log.e(logtag, e.toString());
