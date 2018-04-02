@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Amr on 10/20/2017.
@@ -38,6 +40,16 @@ public class AttachActivity extends Activity {
                 android.R.layout.simple_dropdown_item_1line, projects);
             AutoCompleteTextView textView = findViewById(R.id.jira_projects);
             textView.setAdapter(adapter);
+            textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String selected = (String) parent.getItemAtPosition(position);
+                    JsonRequestTask jiraIssueTask = new JsonRequestTask("https://btljira.broadinstitute.org/rest/api/2/search?jql=project=" + selected);
+                    jiraIssueTask.execute();
+                    ArrayList<String> issues = jiraIssueTask.getResults();
+                    System.out.print(issues.toString());
+                }
+            });
         } catch (Exception e) {
             Log.e(logtag, e.toString());
         }

@@ -30,7 +30,6 @@ public class JsonRequestTask implements AsyncResponse {
     }
 
     public ArrayList<String> getResults() {
-
         return results;
     }
 
