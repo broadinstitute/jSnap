@@ -6,9 +6,13 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.codesnippets4all.json.parsers.JSONParser;
+import com.codesnippets4all.json.parsers.JsonParserFactory;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -28,11 +32,10 @@ import java.util.Map;
  * Created by Osiris on 10/31/2017.
  */
 
-public class AsyncRequest extends AsyncTask<URL, Void, List<String>> {
+public class AsyncRequest extends AsyncTask<URL, Void, StringBuilder> {
     private String logtag = "AsyncRequestTask";
     public AsyncResponse delegate;
-    List<String> projects = new ArrayList<String>();
-
+    StringBuilder sb = new StringBuilder();
     @Override
     protected void onPreExecute(){
 
@@ -46,7 +49,7 @@ public class AsyncRequest extends AsyncTask<URL, Void, List<String>> {
     }
 
     @Override
-    protected List<String> doInBackground(URL... urls) {
+    protected StringBuilder doInBackground(URL... urls) {
             try {
                 // Creating & connection Connection with url and required Header.
                 HttpURLConnection urlConnection = (HttpURLConnection) urls[0].openConnection();
@@ -55,7 +58,6 @@ public class AsyncRequest extends AsyncTask<URL, Void, List<String>> {
                 urlConnection.setRequestMethod("GET");   //POST or GET
                 // CODE HANGS HERE
                 urlConnection.connect();
-                StringBuilder sb = new StringBuilder();
                 int responseCode = urlConnection.getResponseCode();
                 if (responseCode == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -63,22 +65,19 @@ public class AsyncRequest extends AsyncTask<URL, Void, List<String>> {
                     while ((output = br.readLine()) != null) {
                         sb.append(output);
                     }
+                } else {
+                    String not200 = responseCode + ": " + urlConnection.getResponseMessage();
+                    Log.e(logtag, not200);
                 }
-                JSONObject json = new JSONObject(sb.toString());
-//                for (int i = 0; i < )
-//                json.getJSONArray();
-                boolean test = json.has("key");
-                String responseMessage = urlConnection.getResponseMessage();
-                projects.add(responseMessage);
             } catch (Exception e) {
                 Log.e(logtag, e.toString());
             }
-            return projects;
+            return sb;
         }
 
 
     @Override
-    protected void onPostExecute(List<String> result){
+    protected void onPostExecute(StringBuilder result){
         delegate.processFinish(result);
     }
 }
