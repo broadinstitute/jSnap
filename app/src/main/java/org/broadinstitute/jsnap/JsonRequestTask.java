@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JiraProjectsTask implements AsyncResponse {
-    private static String logtag = "GetJiraProjectsTask";
+public class JsonRequestTask implements AsyncResponse {
+    private static String logtag = "JsonRequestTask";
     private AsyncRequest asyncRequest = new AsyncRequest();
     private ArrayList<String> results = new ArrayList<>();
     private String urlString;
 
-    JiraProjectsTask(String urlString) {
+    JsonRequestTask(String urlString) {
         this.urlString = urlString;
     }
     public void execute()  {
@@ -30,6 +30,7 @@ public class JiraProjectsTask implements AsyncResponse {
     }
 
     public ArrayList<String> getResults() {
+
         return results;
     }
 

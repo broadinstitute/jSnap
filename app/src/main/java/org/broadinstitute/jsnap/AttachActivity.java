@@ -31,7 +31,7 @@ public class AttachActivity extends Activity {
         });
 
         try {
-            JiraProjectsTask jiraProjectTask = new JiraProjectsTask("https://btljira.broadinstitute.org/rest/api/2/project");
+            JsonRequestTask jiraProjectTask = new JsonRequestTask("https://btljira.broadinstitute.org/rest/api/2/project");
             jiraProjectTask.execute();
             ArrayList<String> projects = jiraProjectTask.getResults();
             final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
