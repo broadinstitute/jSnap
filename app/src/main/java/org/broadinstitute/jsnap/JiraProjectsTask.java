@@ -12,21 +12,25 @@ import java.util.Map;
 public class JiraProjectsTask implements AsyncResponse {
     private static String logtag = "GetJiraProjectsTask";
     private AsyncRequest asyncRequest = new AsyncRequest();
-    private ArrayList<String> projects = new ArrayList<>();
+    private ArrayList<String> results = new ArrayList<>();
+    private String urlString;
 
+    JiraProjectsTask(String urlString) {
+        this.urlString = urlString;
+    }
     public void execute()  {
         try {
             asyncRequest.delegate = this;
             URL projectURL;
-            projectURL = new URL("https://btljira.broadinstitute.org/rest/api/2/project");
+            projectURL = new URL(this.urlString);
             asyncRequest.execute(projectURL);
         } catch (Exception e) {
             Log.e(logtag, e.toString());
         }
     }
 
-    public ArrayList<String> getProjects() {
-        return projects;
+    public ArrayList<String> getResults() {
+        return results;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class JiraProjectsTask implements AsyncResponse {
              for (int i = 0; i < mapList.size(); i++) {
                  HashMap<String, String> m = mapList.get(i);
                  String project = m.get("key");
-                 projects.add(project);
+                 results.add(project);
              }
          } catch (Exception e) {
              Log.e(logtag, e.toString());

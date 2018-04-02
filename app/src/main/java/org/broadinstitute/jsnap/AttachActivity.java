@@ -4,21 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.codesnippets4all.json.parsers.JSONParser;
-import com.codesnippets4all.json.parsers.JsonParserFactory;
-
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Amr on 10/20/2017.
@@ -41,9 +31,9 @@ public class AttachActivity extends Activity {
         });
 
         try {
-            JiraProjectsTask jiraProjectTask = new JiraProjectsTask();
+            JiraProjectsTask jiraProjectTask = new JiraProjectsTask("https://btljira.broadinstitute.org/rest/api/2/project");
             jiraProjectTask.execute();
-            ArrayList<String> projects = jiraProjectTask.getProjects();
+            ArrayList<String> projects = jiraProjectTask.getResults();
             final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, projects);
             AutoCompleteTextView textView = findViewById(R.id.jira_projects);
