@@ -14,9 +14,11 @@ public class JsonRequestTask implements AsyncResponse {
     private AsyncRequest asyncRequest = new AsyncRequest();
     private ArrayList<String> results = new ArrayList<>();
     private String urlString;
+    private String key;
 
-    JsonRequestTask(String urlString) {
+    JsonRequestTask(String urlString, String key) {
         this.urlString = urlString;
+        this.key = key;
     }
     public void execute()  {
         try {
@@ -39,12 +41,19 @@ public class JsonRequestTask implements AsyncResponse {
              JsonParserFactory factory = JsonParserFactory.getInstance();
              JSONParser parser = factory.newJsonParser();
              Map jsonData = parser.parseJson(output.toString());
-             ArrayList<HashMap<String, String>> mapList = (ArrayList<HashMap<String, String>>) jsonData.get("root");
+             ArrayList<HashMap<String, String>> mapList;
+             if (this.key != null){
+                 mapList = (ArrayList<HashMap<String, String>>) jsonData.get(this.key);
+             } else {
+                 mapList = (ArrayList<HashMap<String, String>>) jsonData.values();
+             }
+             //TODO: this doesn't belong here as this is specific to a type of request.
              for (int i = 0; i < mapList.size(); i++) {
                  HashMap<String, String> m = mapList.get(i);
                  String project = m.get("key");
                  results.add(project);
              }
+
          } catch (Exception e) {
              Log.e(logtag, e.toString());
          }

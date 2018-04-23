@@ -33,7 +33,9 @@ public class AttachActivity extends Activity {
         });
 
         try {
-            JsonRequestTask jiraProjectTask = new JsonRequestTask("https://btljira.broadinstitute.org/rest/api/2/project");
+            JsonRequestTask jiraProjectTask = new JsonRequestTask(
+                    "https://btljira.broadinstitute.org/rest/api/2/project",
+                    "root");
             jiraProjectTask.execute();
             ArrayList<String> projects = jiraProjectTask.getResults();
             final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -44,7 +46,9 @@ public class AttachActivity extends Activity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String selected = (String) parent.getItemAtPosition(position);
-                    JsonRequestTask jiraIssueTask = new JsonRequestTask("https://btljira.broadinstitute.org/rest/api/2/search?jql=project=" + selected);
+                    JsonRequestTask jiraIssueTask = new JsonRequestTask(
+                            "https://btljira.broadinstitute.org/rest/api/2/search?jql=project=" + selected,
+                            "output");
                     jiraIssueTask.execute();
                     ArrayList<String> issues = jiraIssueTask.getResults();
                     System.out.print(issues.toString());
