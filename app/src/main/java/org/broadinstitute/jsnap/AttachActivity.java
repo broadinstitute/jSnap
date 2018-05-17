@@ -8,9 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Amr on 10/20/2017.
@@ -21,7 +19,7 @@ public class AttachActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         //
         super.onCreate(savedInstanceState);
-        String logtag = "AttachActivity";
+        final String logtag = "AttachActivity";
         setContentView(R.layout.activty_attach);
         Button retakeButton = findViewById(R.id.retake_button);
 
@@ -38,20 +36,23 @@ public class AttachActivity extends Activity {
                     "root");
             jiraProjectTask.execute();
             ArrayList<String> projects = jiraProjectTask.getResults();
-            final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+            ArrayAdapter<String> projectsAdapter = new ArrayAdapter<>(AttachActivity.this,
                 android.R.layout.simple_dropdown_item_1line, projects);
             AutoCompleteTextView textView = findViewById(R.id.jira_projects);
-            textView.setAdapter(adapter);
+            textView.setAdapter(projectsAdapter);
             textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String selected = (String) parent.getItemAtPosition(position);
-                    JsonRequestTask jiraIssueTask = new JsonRequestTask(
-                            "https://btljira.broadinstitute.org/rest/api/2/search?jql=project=" + selected,
-                            "output");
+                    //TODO: This guy isn't working properly, need to fix it so second dropdown in this view populates.
+                    String issueUrlString = "https://btljira.broadinstitute.org/rest/api/2/search?jql=project=" + selected + "&fields=key";
+                    JsonRequestTask jiraIssueTask = new JsonRequestTask(issueUrlString,"issues");
                     jiraIssueTask.execute();
                     ArrayList<String> issues = jiraIssueTask.getResults();
-                    System.out.print(issues.toString());
+                    ArrayAdapter<String> issuesAdapter = new ArrayAdapter<>(AttachActivity.this,
+                            android.R.layout.simple_dropdown_item_1line, issues);
+                    AutoCompleteTextView textView2 = findViewById(R.id.jira_issues);
+                    textView2.setAdapter(issuesAdapter);
                 }
             });
         } catch (Exception e) {
