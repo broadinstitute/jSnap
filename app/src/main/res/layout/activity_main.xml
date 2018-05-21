@@ -5,44 +5,71 @@
     android:layout_height="match_parent"
     android:background="@color/broad_blue"
     >
-
-    <ImageView
-        android:layout_height="wrap_content"
+    <TextView
+        android:text="@string/attachExplainProject"
         android:layout_width="wrap_content"
-        android:visibility="visible"
-        android:background="@color/broad_light_blue"
-        android:id="@+id/image_camera" />
-
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"/>
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/cam_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:text="@string/cam_button"
-            android:textColor="@color/broad_blue"
-            android:layout_gravity="bottom"/>
-        <Button
-            android:id="@+id/switch_activity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:text="@string/switch_activity"
-            android:textColor="@color/broad_blue"
-            android:layout_gravity="bottom"/>
+        >
+        <AutoCompleteTextView
+            android:id="@+id/jira_projects"
+            android:labelFor="@id/jira_projects"
+            android:layout_width="match_parent"
+            android:textColor="@color/broad_light_blue"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:completionThreshold="1"
+            android:completionHint="@string/projectAutoComplete" >
+            <requestFocus />
+        </AutoCompleteTextView>
+    </LinearLayout>
+    <TextView
+        android:text="@string/attachExplainIssue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/jira_issues"
+            android:labelFor="@id/jira_issues"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/broad_light_blue"
+            android:completionThreshold="2"
+            android:completionHint="@string/issueAutoComplete">
+        </AutoCompleteTextView>
     </LinearLayout>
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
+        android:layout_height="771dp"
+        >
+        <Button
+            android:text="@string/retakeButton" android:id="@+id/retake_button"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:textColor="@color/broad_blue"
+            />
     </LinearLayout>
+    <ImageView
+        android:id="@+id/image_camera"
+        android:contentDescription="@string/image_cd_camera"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

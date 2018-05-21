@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
+def Projects_URL = '"' + JIRAProjectsURL + '"' ?: '"Define Project URL"';
+def JiraIssuesBaseUrl = '"' + JiraIssuesBaseUrl + '"' ?: '"Define Issues BASE URL"';
 
+android.buildTypes.each { type ->
+    type.buildConfigField 'String', 'Projects_URL', JIRAProjectsURL
+    type.buildConfigField 'String', 'JiraIssuesBaseUrl', JiraIssuesBaseUrl
+}
 android {
     compileSdkVersion 26
     buildToolsVersion "25.0.3"

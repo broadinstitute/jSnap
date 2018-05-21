@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cam_button">Open Camera</string>
+    <string name="cam_button">Take A Picture</string>
     <string name="app_name">jSnap</string>
     <string name="image_cd_camera">Images go here</string>
     <string name="hello">Hello World, PhotoIntentActivity!</string>
@@ -12,8 +12,9 @@
     <string name="projectAutoComplete">Start typing a JIRA project name</string>
     <string name="issueAutoComplete">Start typing a JIRA issue name</string>
     <string name="attachButton">Attach Image</string>
-    <string name="retakeButton">Retake Image</string>
+    <string name="retakeButton">Open Camera</string>
     <string name="switch_activity">Switch Activity</string>
+    <string name="projectsURLString">https://btljira.broadinstitute.org/rest/api/2/project</string>
     <string name="attachExplainProject">
         Start typing a JIRA project.
     </string>
